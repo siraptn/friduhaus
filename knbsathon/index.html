@@ -606,6 +606,13 @@ footer.brand a{color:var(--footer-ink)}
     else window.scrollTo(0,target);
     setTimeout(function(){root.classList.remove('jumping')},700);
   }
+  document.querySelectorAll('nav.toc a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href').slice(1); e.preventDefault();
+      openFromHash(id,true);
+      try{history.replaceState(null,'','#'+id)}catch(err){}
+    });
+  });
   if(location.hash){ var h=location.hash.slice(1); openFromHash(h,false); window.addEventListener('load',function(){openFromHash(h,false)}); }
 })();
 (function(){
