@@ -440,7 +440,7 @@ footer.brand a{color:var(--footer-ink)}
             <a class="talk" href="https://www.bkmagazine.com/city-living/news/guide-yen-akat-nanglinchee-suan-phlu/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://www.bkmagazine.com/wp-content/uploads/2025/07/1280x465.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">BK Magazine</span><span class="talk-title">Why Yen Akat, Suan Phlu and Nanglinchee are Bangkok's hottest hood</span></span></a>
             <a class="talk" href="https://www.bkmagazine.com/restaurants/news/awesome-cafes-restaurants-and-bistros-around-yen-akart/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://www.bkmagazine.com/wp-content/uploads/2025/07/slide_37.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">BK Magazine</span><span class="talk-title">8 cafés, restaurants and bistros around Yen Akat</span></span></a>
             <a class="talk" href="https://www.timeout.com/bangkok/restaurants/places-to-dine-and-drink-in-suanplu-and-yen-akart" target="_blank" rel="noopener"><span class="frame" data-thumb="https://media.timeout.com/images/105238604/image.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Time Out</span><span class="talk-title">Places to dine and drink in Suan Phlu and Yen Akat</span></span></a>
-          </div></div>
+          </div>
         </div>
         <div class="hood">
           <div class="hood-head"><h3>Sathon &amp; Silom</h3></div>
@@ -450,7 +450,7 @@ footer.brand a{color:var(--footer-ink)}
             <a class="talk" href="https://www.thailandnomads.com/restaurants-in-sathorn-bangkok/" target="_blank" rel="noopener"><span class="frame"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Thailand Nomads</span><span class="talk-title">10 restaurants in Sathorn</span></span></a>
             <a class="talk" href="https://www.travelandleisureasia.com/global/dining/food/best-brunch-in-bangkok-sathorn-must-brunch-spots/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2024/04/18193404/Brunch-Sathorn-1600x900.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Travel + Leisure Asia</span><span class="talk-title">Brunch spots in Sathorn</span></span></a>
             <a class="talk" href="https://www.timeout.com/bangkok/restaurants/best-restaurants-and-cafes-in-silom-and-sathorn" target="_blank" rel="noopener"><span class="frame" data-thumb="https://media.timeout.com/images/104700584/image.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Time Out</span><span class="talk-title">Restaurants and cafés in Silom and Sathorn</span></span></a>
-          </div></div>
+          </div>
         </div>
         <div class="hood">
           <div class="hood-head"><h3>Talat Noi</h3></div>
@@ -459,7 +459,7 @@ footer.brand a{color:var(--footer-ink)}
             <a class="talk" href="https://www.expique.com/article/guide-to-talad-noi-in-bangkok-chinatown/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://www.expique.com/wp-content/uploads/2021/01/street-art-at-talad-noi-2.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Expique</span><span class="talk-title">A guide to Talad Noi in Bangkok's Chinatown</span></span></a>
             <a class="talk" href="https://www.cktravels.com/talat-noi-bangkok-things-to-do/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://www.cktravels.com/wp-content/uploads/2023/09/talat-noi-2.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">CK Travels</span><span class="talk-title">34 things to do in Talat Noi</span></span></a>
             <a class="talk" href="https://roamandthrive.com/talat-noi-bangkok/" target="_blank" rel="noopener"><span class="frame" data-thumb="https://i0.wp.com/roamandthrive.com/wp-content/uploads/2023/08/DSC6697.jpg"><span class="ph"></span></span><span class="talk-text"><span class="talk-by">Roam and Thrive</span><span class="talk-title">A guide to Talat Noi</span></span></a>
-          </div></div>
+          </div>
         </div>
       </div>
     </details>
@@ -601,7 +601,7 @@ footer.brand a{color:var(--footer-ink)}
   var arch='<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M22 94 V48 A22 22 0 0 1 66 48 V94 M22 66 H33" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 70 A16 16 0 0 1 98 70 V94" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   document.querySelectorAll('.frame .ph').forEach(function(p){p.innerHTML=arch});
   document.querySelectorAll('.frame[data-thumb]').forEach(function(frame){
-    var img=new Image(); img.alt=''; img.loading='lazy';
+    var img=new Image(); img.alt='';
     img.onload=function(){frame.insertBefore(img,frame.firstChild);frame.classList.add('has-thumb')};
     img.src=frame.getAttribute('data-thumb');
   });
