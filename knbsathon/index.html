@@ -184,6 +184,27 @@ ul.plain li::marker{color:var(--metal)}
 @media (hover:none){.rail-nav{display:none}}
 @media (prefers-reduced-motion:reduce){.thumb img,.card{transition:none}}
 
+
+/* ---------- Accordion: one section open at a time ---------- */
+section{padding-block:0}
+section > .wrap{display:block}
+details.acc > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:26px}
+details.acc > summary::-webkit-details-marker{display:none}
+details.acc > summary:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.sum-text{display:grid;gap:8px;min-width:0}
+.sum-icon{flex:none;width:36px;height:36px;border:1px solid var(--ink-muted);border-radius:var(--r-sm);position:relative;transition:background .2s,border-color .2s}
+.sum-icon::before,.sum-icon::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .25s ease,background .2s}
+.sum-icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+details.acc[open] .sum-icon{background:var(--place);border-color:var(--place)}
+details.acc[open] .sum-icon::before,details.acc[open] .sum-icon::after{background:var(--on-place)}
+details.acc[open] .sum-icon::after{transform:translate(-50%,-50%) rotate(0deg)}
+summary:hover .sum-icon{border-color:var(--place)}
+.acc-body{display:grid;gap:24px;padding-bottom:48px}
+.intro-text{display:grid;gap:12px}
+details.acc[open] .acc-body{animation:accIn .3s ease}
+@keyframes accIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){details.acc[open] .acc-body{animation:none}.sum-icon,.sum-icon::before,.sum-icon::after{transition:none}}
+
 /* check-out */
 .checklist{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
 .checklist label{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
@@ -268,177 +289,217 @@ footer.brand a{color:var(--footer-ink)}
 
 <section id="checkin">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Arriving</span>
-      <h2>Check-in</h2>
-      <p>When you arrive, go to the <strong>lobby</strong> and ask for the keycard for <strong>Room 3104</strong>.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><span class="label">Check-in window</span><b class="num">08:00 – 18:00</b></div>
-      <div class="fact"><span class="label">Keycards</span><b>One keycard</b></div>
-      <div class="fact"><span class="label">Before you arrive</span><b>Send your passport page</b></div>
-    </div>
-    <div class="note">
-      <span class="label">TM30 registration</span>
-      <p>Thai law requires hosts to register foreign guests' address with Immigration (form TM30). Please send a photo of your passport page to Sira in the Airbnb chat so it can be filed for you.</p>
-    </div>
+    <details class="acc" name="guide" open>
+      <summary>
+        <span class="sum-text"><span class="label">Arriving</span><h2>Check-in</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p>When you arrive, go to the <strong>lobby</strong> and ask for the keycard for <strong>Room 3104</strong>.</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><span class="label">Check-in window</span><b class="num">08:00 – 18:00</b></div>
+          <div class="fact"><span class="label">Keycards</span><b>One keycard</b></div>
+          <div class="fact"><span class="label">Before you arrive</span><b>Send your passport page</b></div>
+        </div>
+        <div class="note">
+          <span class="label">TM30 registration</span>
+          <p>Thai law requires hosts to register foreign guests' address with Immigration (form TM30). Please send a photo of your passport page to Sira in the Airbnb chat so it can be filed for you.</p>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="building">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Living at Knightsbridge Prime Sathon</span>
-      <h2>The building</h2>
-      <p>To reach residents-only areas and the rooftop, register with your <strong>passport, a face scan and a fingerprint</strong>. The condo staff will help you with this in the lobby.</p>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Living at Knightsbridge Prime Sathon</span><h2>The building</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p>To reach residents-only areas and the rooftop, register with your <strong>passport, a face scan and a fingerprint</strong>. The condo staff will help you with this in the lobby.</p>
       <p>Your keycard is needed for every elevator ride, up and down. The gym and pool also need a <strong>fingerprint scan</strong>.</p>
-    </div>
-    <div class="stack">
-      <span class="label">Floors you can access</span>
-      <ol class="floors">
-        <li><span class="fl">43</span><span><strong>Rooftop</strong> · gym, pool and saunas, with a 360° view of the city. On New Year's Eve you can watch fireworks across all of Bangkok.</span></li>
-        <li class="you"><span class="fl">31</span><span><strong>Your room</strong> · 3104</span></li>
-        <li><span class="fl">15</span><span><strong>Small garden</strong></span></li>
-        <li><span class="fl">G</span><span><strong>Lobby</strong> · keycard, taxis and printing</span></li>
-      </ol>
-    </div>
-    <div class="stack">
-      <h3>Condo services</h3>
-      <ul class="plain">
-        <li><strong>KNB Lobby</strong> · taxis and document printing. <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=svc8072f" target="_blank" rel="noopener">Message on LINE</a></li>
-        <li><strong>Oridelivery Sathon</strong> · concierge service. <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=orideliverysathorn" target="_blank" rel="noopener">Message on LINE</a></li>
-      </ul>
-    </div>
+        </div>
+        <div class="stack">
+          <span class="label">Floors you can access</span>
+          <ol class="floors">
+            <li><span class="fl">43</span><span><strong>Rooftop</strong> · gym, pool and saunas, with a 360° view of the city. On New Year's Eve you can watch fireworks across all of Bangkok.</span></li>
+            <li class="you"><span class="fl">31</span><span><strong>Your room</strong> · 3104</span></li>
+            <li><span class="fl">15</span><span><strong>Small garden</strong></span></li>
+            <li><span class="fl">G</span><span><strong>Lobby</strong> · keycard, taxis and printing</span></li>
+          </ol>
+        </div>
+        <div class="stack">
+          <h3>Condo services</h3>
+          <ul class="plain">
+            <li><strong>KNB Lobby</strong> · taxis and document printing. <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=svc8072f" target="_blank" rel="noopener">Message on LINE</a></li>
+            <li><strong>Oridelivery Sathon</strong> · concierge service. <a href="https://liff.line.me/1645278921-kWRPP32q/?accountId=orideliverysathorn" target="_blank" rel="noopener">Message on LINE</a></li>
+          </ul>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="cleaning">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Housekeeping</span>
-      <h2>Cleaning with P'Pa</h2>
-      <p><strong>P'Pa (Jidapa)</strong> comes every Wednesday around noon to clean and change your bedsheets.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><span class="label">Every week</span><b>Wednesday</b></div>
-      <div class="fact"><span class="label">Arrives</span><b class="num">≈ 12:00</b></div>
-      <div class="fact"><span class="label">Contact via</span><b>LINE</b></div>
-    </div>
-    <p>Please <a href="https://line.me/th/" target="_blank" rel="noopener">download the LINE app</a> and <a href="https://line.me/ti/p/qIACGsFnBy" target="_blank" rel="noopener">add Sira on LINE</a>. She'll connect you with P'Pa directly.</p>
-    <div class="note">
-      <span class="label">Before each Wednesday</span>
-      <p>Please wash your bedsheets in the washer/dryer in the room before P'Pa's visit, so she has a clean set to put on for you.</p>
-    </div>
-    <ul class="plain">
-      <li>P'Pa is lovely but doesn't speak English. Google Translate works well for chatting with her.</li>
-      <li>She cleans everything outside cupboards and drawers, but doesn't organise inside storage spaces.</li>
-    </ul>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Housekeeping</span><h2>Cleaning with P'Pa</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p><strong>P'Pa (Jidapa)</strong> comes every Wednesday around noon to clean and change your bedsheets.</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><span class="label">Every week</span><b>Wednesday</b></div>
+          <div class="fact"><span class="label">Arrives</span><b class="num">≈ 12:00</b></div>
+          <div class="fact"><span class="label">Contact via</span><b>LINE</b></div>
+        </div>
+        <p>Please <a href="https://line.me/th/" target="_blank" rel="noopener">download the LINE app</a> and <a href="https://line.me/ti/p/qIACGsFnBy" target="_blank" rel="noopener">add Sira on LINE</a>. She'll connect you with P'Pa directly.</p>
+        <div class="note">
+          <span class="label">Before each Wednesday</span>
+          <p>Please wash your bedsheets in the washer/dryer in the room before P'Pa's visit, so she has a clean set to put on for you.</p>
+        </div>
+        <ul class="plain">
+          <li>P'Pa is lovely but doesn't speak English. Google Translate works well for chatting with her.</li>
+          <li>She cleans everything outside cupboards and drawers, but doesn't organise inside storage spaces.</li>
+        </ul>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="apps">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Living in Thailand</span>
-      <h2>Apps to install</h2>
-      <p class="muted">The apps locals use every day.</p>
-    </div>
-    <div class="apps">
-      <div class="app"><span class="label">Getting around</span>
-        <dl>
-          <div><dt>Grab</dt><dd><a href="https://apps.apple.com/app/grab/id647268330" target="_blank" rel="noopener">iOS</a></dd></div>
-          <div><dt>LINE MAN</dt><dd><a href="https://apps.apple.com/app/line-man/id1074280896" target="_blank" rel="noopener">iOS</a></dd></div>
-          <div><dt>TADA</dt><dd><a href="https://tada.global/" target="_blank" rel="noopener">Web</a><a href="https://apps.apple.com/sg/app/tada-ride-hailing/id1412329684" target="_blank" rel="noopener">iOS</a></dd></div>
-          <div><dt>Bolt</dt><dd><a href="https://bolt.eu/" target="_blank" rel="noopener">Web</a></dd></div>
-        </dl></div>
-      <div class="app"><span class="label">Food delivery</span>
-        <dl>
-          <div><dt>Grab</dt><dd><a href="https://apps.apple.com/app/grab/id647268330" target="_blank" rel="noopener">iOS</a></dd></div>
-          <div><dt>LINE MAN</dt><dd><a href="https://apps.apple.com/app/line-man/id1074280896" target="_blank" rel="noopener">iOS</a></dd></div>
-          <div><dt>foodpanda</dt><dd><a href="https://www.foodpanda.co.th/" target="_blank" rel="noopener">Web</a></dd></div>
-        </dl></div>
-      <div class="app"><span class="label">Food reviews</span>
-        <dl>
-          <div><dt>Wongnai</dt><dd><a href="https://apps.apple.com/app/wongnai/id540545261" target="_blank" rel="noopener">iOS</a></dd></div>
-        </dl></div>
-      <div class="app"><span class="label">Laundry</span>
-        <dl>
-          <div><dt>WashDrop</dt><dd><a href="https://www.washdrop.com/" target="_blank" rel="noopener">Web</a><a href="https://apps.apple.com/th/app/washdrop-laundry/id1480186777" target="_blank" rel="noopener">iOS</a></dd></div>
-        </dl></div>
-      <div class="app"><span class="label">Chat</span>
-        <dl>
-          <div><dt>LINE</dt><dd><a href="https://apps.apple.com/app/line/id443904275" target="_blank" rel="noopener">iOS</a></dd></div>
-        </dl></div>
-    </div>
-    <p class="muted">On Android, search for each app by name in the Google Play Store.</p>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Living in Thailand</span><h2>Apps to install</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p class="muted">The apps locals use every day.</p>
+        </div>
+        <div class="apps">
+          <div class="app"><span class="label">Getting around</span>
+            <dl>
+              <div><dt>Grab</dt><dd><a href="https://apps.apple.com/app/grab/id647268330" target="_blank" rel="noopener">iOS</a></dd></div>
+              <div><dt>LINE MAN</dt><dd><a href="https://apps.apple.com/app/line-man/id1074280896" target="_blank" rel="noopener">iOS</a></dd></div>
+              <div><dt>TADA</dt><dd><a href="https://tada.global/" target="_blank" rel="noopener">Web</a><a href="https://apps.apple.com/sg/app/tada-ride-hailing/id1412329684" target="_blank" rel="noopener">iOS</a></dd></div>
+              <div><dt>Bolt</dt><dd><a href="https://bolt.eu/" target="_blank" rel="noopener">Web</a></dd></div>
+            </dl></div>
+          <div class="app"><span class="label">Food delivery</span>
+            <dl>
+              <div><dt>Grab</dt><dd><a href="https://apps.apple.com/app/grab/id647268330" target="_blank" rel="noopener">iOS</a></dd></div>
+              <div><dt>LINE MAN</dt><dd><a href="https://apps.apple.com/app/line-man/id1074280896" target="_blank" rel="noopener">iOS</a></dd></div>
+              <div><dt>foodpanda</dt><dd><a href="https://www.foodpanda.co.th/" target="_blank" rel="noopener">Web</a></dd></div>
+            </dl></div>
+          <div class="app"><span class="label">Food reviews</span>
+            <dl>
+              <div><dt>Wongnai</dt><dd><a href="https://apps.apple.com/app/wongnai/id540545261" target="_blank" rel="noopener">iOS</a></dd></div>
+            </dl></div>
+          <div class="app"><span class="label">Laundry</span>
+            <dl>
+              <div><dt>WashDrop</dt><dd><a href="https://www.washdrop.com/" target="_blank" rel="noopener">Web</a><a href="https://apps.apple.com/th/app/washdrop-laundry/id1480186777" target="_blank" rel="noopener">iOS</a></dd></div>
+            </dl></div>
+          <div class="app"><span class="label">Chat</span>
+            <dl>
+              <div><dt>LINE</dt><dd><a href="https://apps.apple.com/app/line/id443904275" target="_blank" rel="noopener">iOS</a></dd></div>
+            </dl></div>
+        </div>
+        <p class="muted">On Android, search for each app by name in the Google Play Store.</p>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="hood">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Your neighbourhood</span>
-      <h2>What to do nearby</h2>
-    </div>
-    <div class="hood">
-      <div class="hood-head"><h3>Yen Akat, Suan Phlu &amp; Nanglinchee</h3><div class="rail-nav" data-for="r1"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
-      <div class="rail-wrap"><div class="rail" id="r1" tabindex="0" aria-label="Yen Akat, Suan Phlu and Nanglinchee reads">
-        <a class="card" href="https://www.bkmagazine.com/city-living/news/guide-yen-akat-nanglinchee-suan-phlu/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/1280x465.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">Why Yen Akat, Suan Phlu and Nanglinchee are Bangkok's hottest hood</span></div></a>
-        <a class="card" href="https://www.bkmagazine.com/restaurants/news/awesome-cafes-restaurants-and-bistros-around-yen-akart/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/slide_37.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">8 cafés, restaurants and bistros around Yen Akat</span></div></a>
-        <a class="card" href="https://www.timeout.com/bangkok/restaurants/places-to-dine-and-drink-in-suanplu-and-yen-akart" target="_blank" rel="noopener"><div class="thumb"><img src="https://media.timeout.com/images/105238604/image.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Time Out</span><span class="ttl">Places to dine and drink in Suan Phlu and Yen Akat</span></div></a>
-      </div></div>
-    </div>
-    <div class="hood">
-      <div class="hood-head"><h3>Sathon &amp; Silom</h3><div class="rail-nav" data-for="r2"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
-      <div class="rail-wrap"><div class="rail" id="r2" tabindex="0" aria-label="Sathon and Silom reads">
-        <a class="card" href="https://www.bkmagazine.com/restaurants/news/11-best-breakfast-spots-sathorn-and-silom/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/silombreakfast.png" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">11 breakfast spots in Sathorn and Silom</span></div></a>
-        <a class="card" href="https://www.bkmagazine.com/food/best-cafes-sathorn-and-silom/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/ken_cover.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">9 cafés in Sathorn and Silom</span></div></a>
-        <a class="card" href="https://www.thailandnomads.com/restaurants-in-sathorn-bangkok/" target="_blank" rel="noopener"><div class="thumb noimg"><div class="ph"></div></div><div class="body"><span class="src">Thailand Nomads</span><span class="ttl">10 restaurants in Sathorn</span></div></a>
-        <a class="card" href="https://www.travelandleisureasia.com/global/dining/food/best-brunch-in-bangkok-sathorn-must-brunch-spots/" target="_blank" rel="noopener"><div class="thumb"><img src="https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2024/04/18193404/Brunch-Sathorn-1600x900.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Travel + Leisure Asia</span><span class="ttl">Brunch spots in Sathorn</span></div></a>
-        <a class="card" href="https://www.timeout.com/bangkok/restaurants/best-restaurants-and-cafes-in-silom-and-sathorn" target="_blank" rel="noopener"><div class="thumb"><img src="https://media.timeout.com/images/104700584/image.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Time Out</span><span class="ttl">Restaurants and cafés in Silom and Sathorn</span></div></a>
-      </div></div>
-    </div>
-    <div class="hood">
-      <div class="hood-head"><h3>Talat Noi</h3><div class="rail-nav" data-for="r3"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
-      <p class="fav">Sira's favourite for a slow Sunday.</p>
-      <div class="rail-wrap"><div class="rail" id="r3" tabindex="0" aria-label="Talat Noi reads">
-        <a class="card" href="https://www.expique.com/article/guide-to-talad-noi-in-bangkok-chinatown/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.expique.com/wp-content/uploads/2021/01/street-art-at-talad-noi-2.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Expique</span><span class="ttl">A guide to Talad Noi in Bangkok's Chinatown</span></div></a>
-        <a class="card" href="https://www.cktravels.com/talat-noi-bangkok-things-to-do/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.cktravels.com/wp-content/uploads/2023/09/talat-noi-2.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">CK Travels</span><span class="ttl">34 things to do in Talat Noi</span></div></a>
-        <a class="card" href="https://roamandthrive.com/talat-noi-bangkok/" target="_blank" rel="noopener"><div class="thumb"><img src="https://i0.wp.com/roamandthrive.com/wp-content/uploads/2023/08/DSC6697.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Roam and Thrive</span><span class="ttl">A guide to Talat Noi</span></div></a>
-      </div></div>
-    </div>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Your neighbourhood</span><h2>What to do nearby</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="hood">
+          <div class="hood-head"><h3>Yen Akat, Suan Phlu &amp; Nanglinchee</h3><div class="rail-nav" data-for="r1"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
+          <div class="rail-wrap"><div class="rail" id="r1" tabindex="0" aria-label="Yen Akat, Suan Phlu and Nanglinchee reads">
+            <a class="card" href="https://www.bkmagazine.com/city-living/news/guide-yen-akat-nanglinchee-suan-phlu/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/1280x465.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">Why Yen Akat, Suan Phlu and Nanglinchee are Bangkok's hottest hood</span></div></a>
+            <a class="card" href="https://www.bkmagazine.com/restaurants/news/awesome-cafes-restaurants-and-bistros-around-yen-akart/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/slide_37.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">8 cafés, restaurants and bistros around Yen Akat</span></div></a>
+            <a class="card" href="https://www.timeout.com/bangkok/restaurants/places-to-dine-and-drink-in-suanplu-and-yen-akart" target="_blank" rel="noopener"><div class="thumb"><img src="https://media.timeout.com/images/105238604/image.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Time Out</span><span class="ttl">Places to dine and drink in Suan Phlu and Yen Akat</span></div></a>
+          </div></div>
+        </div>
+        <div class="hood">
+          <div class="hood-head"><h3>Sathon &amp; Silom</h3><div class="rail-nav" data-for="r2"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
+          <div class="rail-wrap"><div class="rail" id="r2" tabindex="0" aria-label="Sathon and Silom reads">
+            <a class="card" href="https://www.bkmagazine.com/restaurants/news/11-best-breakfast-spots-sathorn-and-silom/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/silombreakfast.png" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">11 breakfast spots in Sathorn and Silom</span></div></a>
+            <a class="card" href="https://www.bkmagazine.com/food/best-cafes-sathorn-and-silom/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.bkmagazine.com/wp-content/uploads/2025/07/ken_cover.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">BK Magazine</span><span class="ttl">9 cafés in Sathorn and Silom</span></div></a>
+            <a class="card" href="https://www.thailandnomads.com/restaurants-in-sathorn-bangkok/" target="_blank" rel="noopener"><div class="thumb noimg"><div class="ph"></div></div><div class="body"><span class="src">Thailand Nomads</span><span class="ttl">10 restaurants in Sathorn</span></div></a>
+            <a class="card" href="https://www.travelandleisureasia.com/global/dining/food/best-brunch-in-bangkok-sathorn-must-brunch-spots/" target="_blank" rel="noopener"><div class="thumb"><img src="https://images.travelandleisureasia.com/wp-content/uploads/sites/3/2024/04/18193404/Brunch-Sathorn-1600x900.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Travel + Leisure Asia</span><span class="ttl">Brunch spots in Sathorn</span></div></a>
+            <a class="card" href="https://www.timeout.com/bangkok/restaurants/best-restaurants-and-cafes-in-silom-and-sathorn" target="_blank" rel="noopener"><div class="thumb"><img src="https://media.timeout.com/images/104700584/image.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Time Out</span><span class="ttl">Restaurants and cafés in Silom and Sathorn</span></div></a>
+          </div></div>
+        </div>
+        <div class="hood">
+          <div class="hood-head"><h3>Talat Noi</h3><div class="rail-nav" data-for="r3"><button type="button" data-dir="-1" aria-label="Previous">‹</button><button type="button" data-dir="1" aria-label="Next">›</button></div></div>
+          <p class="fav">Sira's favourite for a slow Sunday.</p>
+          <div class="rail-wrap"><div class="rail" id="r3" tabindex="0" aria-label="Talat Noi reads">
+            <a class="card" href="https://www.expique.com/article/guide-to-talad-noi-in-bangkok-chinatown/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.expique.com/wp-content/uploads/2021/01/street-art-at-talad-noi-2.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Expique</span><span class="ttl">A guide to Talad Noi in Bangkok's Chinatown</span></div></a>
+            <a class="card" href="https://www.cktravels.com/talat-noi-bangkok-things-to-do/" target="_blank" rel="noopener"><div class="thumb"><img src="https://www.cktravels.com/wp-content/uploads/2023/09/talat-noi-2.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">CK Travels</span><span class="ttl">34 things to do in Talat Noi</span></div></a>
+            <a class="card" href="https://roamandthrive.com/talat-noi-bangkok/" target="_blank" rel="noopener"><div class="thumb"><img src="https://i0.wp.com/roamandthrive.com/wp-content/uploads/2023/08/DSC6697.jpg" alt="" loading="lazy"><div class="ph"></div></div><div class="body"><span class="src">Roam and Thrive</span><span class="ttl">A guide to Talat Noi</span></div></a>
+          </div></div>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="bangkok">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Further afield</span>
-      <h2>Bangkok, curated</h2>
-      <p>As Thais in an international community, we're often asked what to do in Bangkok. These lists bring together the city's best for you.</p>
-    </div>
-    <div class="lists">
-      <div class="list"><h3>Massage</h3><span class="who">Curated by Thai World Travelers</span><a class="go" href="https://maps.app.goo.gl/x1wdVTpEeu4ocsVJ9" target="_blank" rel="noopener">Open in Google Maps</a></div>
-      <div class="list"><h3>Cafés</h3><span class="who">Curated with love by Sira's sister</span><a class="go" href="https://maps.app.goo.gl/JyJyzsLUqTaKu66S7" target="_blank" rel="noopener">Open in Google Maps</a></div>
-      <div class="list"><h3>Thai food</h3><span class="who">Curated by Thai World Travelers</span><a class="go" href="https://maps.app.goo.gl/YW8d6CZ82xQjxEYQ9" target="_blank" rel="noopener">Open in Google Maps</a></div>
-    </div>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Further afield</span><h2>Bangkok, curated</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p>As Thais in an international community, we're often asked what to do in Bangkok. These lists bring together the city's best for you.</p>
+        </div>
+        <div class="lists">
+          <div class="list"><h3>Massage</h3><span class="who">Curated by Thai World Travelers</span><a class="go" href="https://maps.app.goo.gl/x1wdVTpEeu4ocsVJ9" target="_blank" rel="noopener">Open in Google Maps</a></div>
+          <div class="list"><h3>Cafés</h3><span class="who">Curated with love by Sira's sister</span><a class="go" href="https://maps.app.goo.gl/JyJyzsLUqTaKu66S7" target="_blank" rel="noopener">Open in Google Maps</a></div>
+          <div class="list"><h3>Thai food</h3><span class="who">Curated by Thai World Travelers</span><a class="go" href="https://maps.app.goo.gl/YW8d6CZ82xQjxEYQ9" target="_blank" rel="noopener">Open in Google Maps</a></div>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
 <section id="checkout">
   <div class="wrap">
-    <div class="head">
-      <span class="label">Leaving</span>
-      <h2>Before you check out</h2>
-      <p>Thank you for staying with us. Here's what to do before you go. Tick each one off as you finish.</p>
-    </div>
-    <ol class="checklist">
-      <li><label><input type="checkbox" id="co1"><span class="t"><b>Bedsheets and linens.</b> Wash the bedsheets and linens, including the sofa blanket, in the washer/dryer. You can leave the machine running; P'Pa will handle the rest.</span></label></li>
-      <li><label><input type="checkbox" id="co2"><span class="t"><b>Furniture.</b> Put anything you moved back in its original spot, to make things easier for P'Pa.</span></label></li>
-      <li><label><input type="checkbox" id="co3"><span class="t"><b>Keycards.</b> Return your keycard(s) and the parking Bluetooth tag to the lobby, and tell them they're for Room 3104.</span></label></li>
-      <li><label><input type="checkbox" id="co4"><span class="t"><b>Feedback.</b> Share any ideas that would make the space better for the next guest.</span></label></li>
-      <li><label><input type="checkbox" id="co5"><span class="t"><b>Review.</b> Please consider leaving a review on Airbnb. With monthly bookings, every review helps Sira keep her Superhost status.</span></label></li>
-    </ol>
+    <details class="acc" name="guide">
+      <summary>
+        <span class="sum-text"><span class="label">Leaving</span><h2>Before you check out</h2></span>
+        <span class="sum-icon" aria-hidden="true"></span>
+      </summary>
+      <div class="acc-body">
+        <div class="intro-text">
+          <p>Thank you for staying with us. Here's what to do before you go. Tick each one off as you finish.</p>
+        </div>
+        <ol class="checklist">
+          <li><label><input type="checkbox" id="co1"><span class="t"><b>Bedsheets and linens.</b> Wash the bedsheets and linens, including the sofa blanket, in the washer/dryer. You can leave the machine running; P'Pa will handle the rest.</span></label></li>
+          <li><label><input type="checkbox" id="co2"><span class="t"><b>Furniture.</b> Put anything you moved back in its original spot, to make things easier for P'Pa.</span></label></li>
+          <li><label><input type="checkbox" id="co3"><span class="t"><b>Keycards.</b> Return your keycard(s) and the parking Bluetooth tag to the lobby, and tell them they're for Room 3104.</span></label></li>
+          <li><label><input type="checkbox" id="co4"><span class="t"><b>Feedback.</b> Share any ideas that would make the space better for the next guest.</span></label></li>
+          <li><label><input type="checkbox" id="co5"><span class="t"><b>Review.</b> Please consider leaving a review on Airbnb. With monthly bookings, every review helps Sira keep her Superhost status.</span></label></li>
+        </ol>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -467,6 +528,32 @@ footer.brand a{color:var(--footer-ink)}
 </footer>
 
 <script>
+(function(){
+  /* accordion: keep one section open (native name="" does this in new browsers; this covers older ones) */
+  var accs=[].slice.call(document.querySelectorAll('details.acc'));
+  accs.forEach(function(d){
+    d.addEventListener('toggle',function(){
+      if(d.open){
+        accs.forEach(function(o){ if(o!==d && o.open) o.open=false; });
+        window.dispatchEvent(new Event('resize')); /* galleries re-measure once visible */
+      }
+    });
+  });
+  function openFromHash(id, scroll){
+    var sec=document.getElementById(id); if(!sec) return;
+    var d=sec.querySelector('details.acc'); if(!d) return;
+    d.open=true;
+    if(scroll) sec.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+  }
+  document.querySelectorAll('nav.toc a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href').slice(1); e.preventDefault();
+      openFromHash(id,true);
+      try{history.replaceState(null,'','#'+id)}catch(err){}
+    });
+  });
+  if(location.hash) openFromHash(location.hash.slice(1),false);
+})();
 (function(){
   /* gallery: placeholder arch for cards without (or failing) images */
   var arch='<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M22 94 V48 A22 22 0 0 1 66 48 V94 M22 66 H33" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 70 A16 16 0 0 1 98 70 V94" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
