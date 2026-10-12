@@ -211,6 +211,9 @@ details.acc[open]>summary .chev{background:var(--place);border-color:var(--place
   .js .rv.in{opacity:1;transform:none}
 }
 
+.jumping details.acc::details-content{transition:none!important}
+.jumping main>section.rv{transition:none!important}
+
 /* check-out */
 .checklist{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
 .checklist label{display:grid;grid-template-columns:28px 1fr;gap:14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
@@ -581,20 +584,29 @@ footer.brand a{color:var(--footer-ink)}
       }
     });
   });
+  /* jump from the top menu: land with the section's label (e.g. "Your neighbourhood")
+     just under the sticky menu bar. Other sections close instantly so nothing above
+     shifts while scrolling, and the target is shown without its fade-up offset. */
+  function restTop(el){var y=0;while(el){y+=el.offsetTop;el=el.offsetParent}return y}
   function openFromHash(id, scroll){
     var sec=document.getElementById(id); if(!sec) return;
     var d=sec.querySelector('details.acc'); if(!d) return;
+    var root=document.documentElement;
+    root.classList.add('jumping');                       /* no open/close animation during the jump */
+    accs.forEach(function(o){ if(o!==d && o.open) o.open=false; });
     d.open=true;
-    if(scroll) sec.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    sec.classList.add('in');                              /* already in place, no rise */
+    void sec.offsetHeight;
+    var nav=document.querySelector('nav.toc');
+    var navH=nav?nav.getBoundingClientRect().height:0;
+    var label=sec.querySelector('summary .label')||sec;
+    var target=Math.max(0, restTop(label) - navH - 16);
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(scroll) window.scrollTo({top:target,behavior:reduce?'auto':'smooth'});
+    else window.scrollTo(0,target);
+    setTimeout(function(){root.classList.remove('jumping')},700);
   }
-  document.querySelectorAll('nav.toc a').forEach(function(a){
-    a.addEventListener('click',function(e){
-      var id=a.getAttribute('href').slice(1); e.preventDefault();
-      openFromHash(id,true);
-      try{history.replaceState(null,'','#'+id)}catch(err){}
-    });
-  });
-  if(location.hash) openFromHash(location.hash.slice(1),false);
+  if(location.hash){ var h=location.hash.slice(1); openFromHash(h,false); window.addEventListener('load',function(){openFromHash(h,false)}); }
 })();
 (function(){
   /* gallery (link-in-bio): the arch shows until a thumbnail loads; thumbnails are added only if they load */
